@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string>
-#include <list>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,8 +12,8 @@ struct Questionnaire {
     string answer;
 };
 
-// Функция для добавления анкеты в список
-void addQuestionnaire(list<Questionnaire>& questionnaireList) {
+// Функция для добавления анкеты в вектор
+void addQuestionnaire(vector<Questionnaire>& questionnaireList) {
     Questionnaire q;
     cout << "Введите возраст: ";
     cin >> q.age;
@@ -27,14 +27,14 @@ void addQuestionnaire(list<Questionnaire>& questionnaireList) {
 }
 
 // Функция для вывода всех анкет
-void printQuestionnaires(list<Questionnaire>& questionnaireList) {
+void printQuestionnaires(const vector<Questionnaire>& questionnaireList) {
     for (const auto& q : questionnaireList) {
         cout << "Возраст: " << q.age << ", Пол: " << q.gender << ", Образование: " << q.education << ", Ответ: " << q.answer << endl;
     }
 }
 
 // Функция для подсчета мужчин старше 40 лет с высшим образованием, ответивших "да"
-int countMenOver40WithHigherEducationAnsweredYes(list<Questionnaire>& questionnaireList) {
+int countMenOver40WithHigherEducationAnsweredYes(const vector<Questionnaire>& questionnaireList) {
     int count = 0;
     for (const auto& q : questionnaireList) {
         if (q.gender == "мужской" && q.age > 40 && q.education == "высшее" && q.answer == "да") {
@@ -45,7 +45,7 @@ int countMenOver40WithHigherEducationAnsweredYes(list<Questionnaire>& questionna
 }
 
 // Функция для подсчета женщин моложе 30 лет со средним образованием, ответивших "нет"
-int countWomenUnder30WithSecondaryEducationAnsweredNo(list<Questionnaire>& questionnaireList) {
+int countWomenUnder30WithSecondaryEducationAnsweredNo(const vector<Questionnaire>& questionnaireList) {
     int count = 0;
     for (const auto& q : questionnaireList) {
         if (q.gender == "женский" && q.age < 30 && q.education == "среднее" && q.answer == "нет") {
@@ -56,7 +56,7 @@ int countWomenUnder30WithSecondaryEducationAnsweredNo(list<Questionnaire>& quest
 }
 
 // Функция для подсчета мужчин моложе 25 лет с начальным образованием, ответивших "да"
-int countMenUnder25WithPrimaryEducationAnsweredYes(list<Questionnaire>& questionnaireList) {
+int countMenUnder25WithPrimaryEducationAnsweredYes(const vector<Questionnaire>& questionnaireList) {
     int count = 0;
     for (const auto& q : questionnaireList) {
         if (q.gender == "мужской" && q.age < 25 && q.education == "начальное" && q.answer == "да") {
@@ -67,7 +67,7 @@ int countMenUnder25WithPrimaryEducationAnsweredYes(list<Questionnaire>& question
 }
 
 int main() {
-    list<Questionnaire> questionnaireList;
+    vector<Questionnaire> questionnaireList;
     int choice;
 
     while (true) {
