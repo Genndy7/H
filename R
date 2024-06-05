@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <functional>
 
 using namespace std;
 
@@ -29,30 +28,42 @@ void addQuestionnaire(vector<Questionnaire>& questionnaireList) {
 
 // Функция для вывода всех анкет
 void printQuestionnaires(const vector<Questionnaire>& questionnaireList) {
-    for_each(questionnaireList.begin(), questionnaireList.end(), [](const Questionnaire& q) {
-        cout << "Возраст: " << q.age << ", Пол: " << q.gender << ", Образование: " << q.education << ", Ответ: " << q.answer << endl;
-    });
+    for (size_t i = 0; i < questionnaireList.size(); i++) {
+        cout << "Возраст: " << questionnaireList[i].age << ", Пол: " << questionnaireList[i].gender << ", Образование: " << questionnaireList[i].education << ", Ответ: " << questionnaireList[i].answer << endl;
+    }
 }
 
 // Функция для подсчета мужчин старше 40 лет с высшим образованием, ответивших "да"
 int countMenOver40WithHigherEducationAnsweredYes(const vector<Questionnaire>& questionnaireList) {
-    return count_if(questionnaireList.begin(), questionnaireList.end(), [](const Questionnaire& q) {
-        return q.gender == "мужской" && q.age > 40 && q.education == "высшее" && q.answer == "да";
-    });
+    int count = 0;
+    for (size_t i = 0; i < questionnaireList.size(); i++) {
+        if (questionnaireList[i].gender == "мужской" && questionnaireList[i].age > 40 && questionnaireList[i].education == "высшее" && questionnaireList[i].answer == "да") {
+            count++;
+        }
+    }
+    return count;
 }
 
 // Функция для подсчета женщин моложе 30 лет со средним образованием, ответивших "нет"
 int countWomenUnder30WithSecondaryEducationAnsweredNo(const vector<Questionnaire>& questionnaireList) {
-    return count_if(questionnaireList.begin(), questionnaireList.end(), [](const Questionnaire& q) {
-        return q.gender == "женский" && q.age < 30 && q.education == "среднее" && q.answer == "нет";
-    });
+    int count = 0;
+    for (size_t i = 0; i < questionnaireList.size(); i++) {
+        if (questionnaireList[i].gender == "женский" && questionnaireList[i].age < 30 && questionnaireList[i].education == "среднее" && questionnaireList[i].answer == "нет") {
+            count++;
+        }
+    }
+    return count;
 }
 
 // Функция для подсчета мужчин моложе 25 лет с начальным образованием, ответивших "да"
 int countMenUnder25WithPrimaryEducationAnsweredYes(const vector<Questionnaire>& questionnaireList) {
-    return count_if(questionnaireList.begin(), questionnaireList.end(), [](const Questionnaire& q) {
-        return q.gender == "мужской" && q.age < 25 && q.education == "начальное" && q.answer == "да";
-    });
+    int count = 0;
+    for (size_t i = 0; i < questionnaireList.size(); i++) {
+        if (questionnaireList[i].gender == "мужской" && questionnaireList[i].age < 25 && questionnaireList[i].education == "начальное" && questionnaireList[i].answer == "да") {
+            count++;
+        }
+    }
+    return count;
 }
 
 int main() {
@@ -67,17 +78,7 @@ int main() {
         cout << "4. Выйти" << endl;
         cout << "Введите выбор: ";
         cin >> choice;
-
-        switch (choice) {
-            case 1:
-                addQuestionnaire(questionnaireList);
-                break;
-            case 2:
-                printQuestionnaires(questionnaireList);
-                break;
-            case 3:
-                cout << "Мужчин старше 40 лет с высшим образованием, ответивших 'да': " << countMenOver40WithHigherEducationAnsweredYes(questionnaireList) << endl;
-                cout << "Женщин моложе 30 лет со средним образованием, ответивших 'нет': " << countWomenUnder30WithSecondaryEducationAnsweredNo(questionnaireList) << endl;
+        
                 cout << "Мужчин моложе 25 лет с начальным образованием, ответивших 'да': " << countMenUnder25WithPrimaryEducationAnsweredYes(questionnaireList) << endl;
                 break;
             case 4:
@@ -90,3 +91,14 @@ int main() {
 
     return 0;
 }
+
+        switch (choice) {
+            case 1:
+                addQuestionnaire(questionnaireList);
+                break;
+            case 2:
+                printQuestionnaires(questionnaireList);
+                break;
+            case 3:
+                cout << "Мужчин старше 40 лет с высшим образованием, ответивших 'да': " << countMenOver40WithHigherEducationAnsweredYes(questionnaireList) << endl;
+                cout << "Женщин моложе 30 лет со средним образованием, ответивших 'нет': " << countWomenUnder30WithSecondaryEducationAnsweredNo(questionnaireList) << endl;
