@@ -1,0 +1,103 @@
+#include <iostream>
+#include <string>
+#include <list>
+
+using namespace std;
+
+// Структура для хранения данных анкеты
+struct Questionnaire {
+    int age;
+    string gender;
+    string education;
+    string answer;
+};
+
+// Функция для добавления анкеты в список
+void addQuestionnaire(list<Questionnaire>& questionnaireList) {
+    Questionnaire q;
+    cout << "Введите возраст: ";
+    cin >> q.age;
+    cout << "Введите пол (мужской/женский): ";
+    cin >> q.gender;
+    cout << "Введите образование (начальное/среднее/высшее): ";
+    cin >> q.education;
+    cout << "Введите ответ (да/нет): ";
+    cin >> q.answer;
+    questionnaireList.push_back(q);
+}
+
+// Функция для вывода всех анкет
+void printQuestionnaires(list<Questionnaire>& questionnaireList) {
+    for (const auto& q : questionnaireList) {
+        cout << "Возраст: " << q.age << ", Пол: " << q.gender << ", Образование: " << q.education << ", Ответ: " << q.answer << endl;
+    }
+}
+
+// Функция для подсчета мужчин старше 40 лет с высшим образованием, ответивших "да"
+int countMenOver40WithHigherEducationAnsweredYes(list<Questionnaire>& questionnaireList) {
+    int count = 0;
+    for (const auto& q : questionnaireList) {
+        if (q.gender == "мужской" && q.age > 40 && q.education == "высшее" && q.answer == "да") {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Функция для подсчета женщин моложе 30 лет со средним образованием, ответивших "нет"
+int countWomenUnder30WithSecondaryEducationAnsweredNo(list<Questionnaire>& questionnaireList) {
+    int count = 0;
+    for (const auto& q : questionnaireList) {
+        if (q.gender == "женский" && q.age < 30 && q.education == "среднее" && q.answer == "нет") {
+            count++;
+        }
+    }
+    return count;
+}
+
+// Функция для подсчета мужчин моложе 25 лет с начальным образованием, ответивших "да"
+int countMenUnder25WithPrimaryEducationAnsweredYes(list<Questionnaire>& questionnaireList) {
+    int count = 0;
+    for (const auto& q : questionnaireList) {
+        if (q.gender == "мужской" && q.age < 25 && q.education == "начальное" && q.answer == "да") {
+            count++;
+        }
+    }
+    return count;
+}
+
+int main() {
+    list<Questionnaire> questionnaireList;
+    int choice;
+
+    while (true) {
+        cout << "Меню:" << endl;
+        cout << "1. Добавить анкету" << endl;
+        cout << "2. Вывести все анкеты" << endl;
+        cout << "3. Вывести статистику" << endl;
+        cout << "4. Выйти" << endl;
+        cout << "Введите выбор: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addQuestionnaire(questionnaireList);
+                break;
+            case 2:
+                printQuestionnaires(questionnaireList);
+                break;
+            case 3:
+                cout << "Мужчин старше 40 лет с высшим образованием, ответивших 'да': " << countMenOver40WithHigherEducationAnsweredYes(questionnaireList) << endl;
+                cout << "Женщин моложе 30 лет со средним образованием, ответивших 'нет': " << countWomenUnder30WithSecondaryEducationAnsweredNo(questionnaireList) << endl;
+                cout << "Мужчин моложе 25 лет с начальным образованием, ответивших 'да': " << countMenUnder25WithPrimaryEducationAnsweredYes(questionnaireList) << endl;
+                break;
+            case 4:
+                return 0;
+            default:
+                cout << "Неверный выбор. Попробуйте еще раз." << endl;
+                break;
+        }
+    }
+
+    return 0;
+}
