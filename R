@@ -78,7 +78,17 @@ int main() {
         cout << "4. Выйти" << endl;
         cout << "Введите выбор: ";
         cin >> choice;
-        
+
+        switch (choice) {
+            case 1:
+                addQuestionnaire(questionnaireList);
+                break;
+            case 2:
+                printQuestionnaires(questionnaireList);
+                break;
+            case 3:
+                cout << "Мужчин старше 40 лет с высшим образованием, ответивших 'да': " << countMenOver40WithHigherEducationAnsweredYes(questionnaireList) << endl;
+                cout << "Женщин моложе 30 лет со средним образованием, ответивших 'нет': " << countWomenUnder30WithSecondaryEducationAnsweredNo(questionnaireList) << endl;
                 cout << "Мужчин моложе 25 лет с начальным образованием, ответивших 'да': " << countMenUnder25WithPrimaryEducationAnsweredYes(questionnaireList) << endl;
                 break;
             case 4:
@@ -91,14 +101,3 @@ int main() {
 
     return 0;
 }
-
-        switch (choice) {
-            case 1:
-                addQuestionnaire(questionnaireList);
-                break;
-            case 2:
-                printQuestionnaires(questionnaireList);
-                break;
-            case 3:
-                cout << "Мужчин старше 40 лет с высшим образованием, ответивших 'да': " << countMenOver40WithHigherEducationAnsweredYes(questionnaireList) << endl;
-                cout << "Женщин моложе 30 лет со средним образованием, ответивших 'нет': " << countWomenUnder30WithSecondaryEducationAnsweredNo(questionnaireList) << endl;
