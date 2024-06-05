@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <functional>
 
 using namespace std;
 
@@ -28,49 +29,37 @@ void addQuestionnaire(vector<Questionnaire>& questionnaireList) {
 
 // Функция для вывода всех анкет
 void printQuestionnaires(const vector<Questionnaire>& questionnaireList) {
-    for (const auto& q : questionnaireList) {
+    for_each(questionnaireList.begin(), questionnaireList.end(), [](const Questionnaire& q) {
         cout << "Возраст: " << q.age << ", Пол: " << q.gender << ", Образование: " << q.education << ", Ответ: " << q.answer << endl;
-    }
+    });
 }
 
 // Функция для подсчета мужчин старше 40 лет с высшим образованием, ответивших "да"
 int countMenOver40WithHigherEducationAnsweredYes(const vector<Questionnaire>& questionnaireList) {
-    int count = 0;
-    for (size_t i = 0; i < questionnaireList.size(); i++) {
-        if (questionnaireList[i].gender == "мужской" && questionnaireList[i].age > 40 && questionnaireList[i].education == "высшее" && questionnaireList[i].answer == "да") {
-            count++;
-        }
-    }
-    return count;
+    return count_if(questionnaireList.begin(), questionnaireList.end(), [](const Questionnaire& q) {
+        return q.gender == "мужской" && q.age > 40 && q.education == "высшее" && q.answer == "да";
+    });
 }
 
 // Функция для подсчета женщин моложе 30 лет со средним образованием, ответивших "нет"
 int countWomenUnder30WithSecondaryEducationAnsweredNo(const vector<Questionnaire>& questionnaireList) {
-    int count = 0;
-    for (size_t i = 0; i < questionnaireList.size(); i++) {
-        if (questionnaireList[i].gender == "женский" && questionnaireList[i].age < 30 && questionnaireList[i].education == "среднее" && questionnaireList[i].answer == "нет") {
-            count++;
-        }
-    }
-    return count;
+    return count_if(questionnaireList.begin(), questionnaireList.end(), [](const Questionnaire& q) {
+        return q.gender == "женский" && q.age < 30 && q.education == "среднее" && q.answer == "нет";
+    });
 }
 
 // Функция для подсчета мужчин моложе 25 лет с начальным образованием, ответивших "да"
 int countMenUnder25WithPrimaryEducationAnsweredYes(const vector<Questionnaire>& questionnaireList) {
-    int count = 0;
-    for (size_t i = 0; i < questionnaireList.size(); i++) {
-        if (questionnaireList[i].gender == "мужской" && questionnaireList[i].age < 25 && questionnaireList[i].education == "начальное" && questionnaireList[i].answer == "да") {
-            count++;
-        }
-    }
-    return count;
+    return count_if(questionnaireList.begin(), questionnaireList.end(), [](const Questionnaire& q) {
+        return q.gender == "мужской" && q.age < 25 && q.education == "начальное" && q.answer == "да";
+    });
 }
 
 int main() {
     vector<Questionnaire> questionnaireList;
     int choice;
 
-    for (;;) {
+    while (true) {
         cout << "Меню:" << endl;
         cout << "1. Добавить анкету" << endl;
         cout << "2. Вывести все анкеты" << endl;
